@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {
   useGetAllContactsQuery,
   useDeleteContactMutation,
+  // useCreateNewContactMutation,
 } from 'redux/contacts/contactSlice';
 // import contactActions from 'redux/contacts/contacts-actions';
 // import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
-import Button from 'components/Button/Button';
 import styles from './ContactsList.module.css';
 
 export default function ContactList() {
@@ -40,10 +40,22 @@ export default function ContactList() {
       //   status,
     },
   ] = useDeleteContactMutation();
+
   // console.log(useDeleteContactMutation());
   // const dispatch = useDispatch();
 
-  // console.log(contacts);
+  // const [
+  //   createContact,
+  //   {
+  //     // isError,
+  //     isLoading,
+  //     // isSuccess,
+  //     isUninitialized,
+  //     originalArgs,
+  //     reset,
+  //     status,
+  //   },
+  // ] = useCreateNewContactMutation();
 
   return (
     isSuccess && (
@@ -52,11 +64,10 @@ export default function ContactList() {
           <li key={id} className={styles.Item}>
             <p className={styles.Name}>{name}:</p>
             <p className={styles.Number}>{number}</p>
-            <Button
-              title={isDeleting ? 'Deleting...' : 'Delete'}
-              // onClick={() => dispatch(contactActions.deleteContact(id))}
-              onClick={() => deleteContact(id)}
-            />
+            <button onClick={() => deleteContact(id)}>
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </button>
+            {/* // onClick={() => dispatch(contactActions.deleteContact(id))} */}
           </li>
         ))}
       </ul>

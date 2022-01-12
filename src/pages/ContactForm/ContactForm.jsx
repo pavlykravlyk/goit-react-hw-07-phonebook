@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { useCreateNewContactMutation } from 'redux/contacts/contactSlice';
 import actions from 'redux/contacts/contacts-actions';
 import FORM_CONFIG from 'formConfig';
 import styles from './ContactForm.module.css';
@@ -9,17 +10,32 @@ export default function Phonebook() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  // const [
+  //   createNewContact,
+  //   {
+  //     isError,
+  //     isLoading,
+  //     isSuccess,
+  //     isUninitialized,
+  //     originalArgs,
+  //     reset,
+  //     status,
+  //   },
+  // ] = useCreateNewContactMutation();
+
+  // console.log(useCreateNewContactMutation());
+
   const handleInputChange = ({ target: { name, value } }) => {
     name === 'name' && setName(value);
     name === 'number' && setNumber(value);
   };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleFormSubmit = event => {
     event.preventDefault();
-
-    name && number !== '' && dispatch(actions.addContact(name, number));
+    // createNewContact(name, number);
+    // name && number !== '' && dispatch(actions.addContact(name, number));
 
     setName('');
     setNumber('');
