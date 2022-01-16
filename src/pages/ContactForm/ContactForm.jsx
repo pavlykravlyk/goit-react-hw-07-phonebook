@@ -1,41 +1,36 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-import { useCreateNewContactMutation } from 'redux/contacts/contactSlice';
-import actions from 'redux/contacts/contacts-actions';
+import {
+  useAddContactMutation,
+  useGetAllContactsQuery,
+} from 'redux/contactSlice';
 import FORM_CONFIG from 'formConfig';
+import { toast } from 'react-toastify';
+import { ThreeDots } from 'react-loader-spinner';
 import styles from './ContactForm.module.css';
 
 export default function Phonebook() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  // const [
-  //   createNewContact,
-  //   {
-  //     isError,
-  //     isLoading,
-  //     isSuccess,
-  //     isUninitialized,
-  //     originalArgs,
-  //     reset,
-  //     status,
-  //   },
-  // ] = useCreateNewContactMutation();
-
-  // console.log(useCreateNewContactMutation());
-
   const handleInputChange = ({ target: { name, value } }) => {
     name === 'name' && setName(value);
     name === 'number' && setNumber(value);
   };
 
-  // const dispatch = useDispatch();
+  const { data } = useGetAllContactsQuery();
+  const [addContact, { isError, isLoading: isAdding, isSuccess: isAdded }] =
+    useAddContactMutation();
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    // createNewContact(name, number);
-    // name && number !== '' && dispatch(actions.addContact(name, number));
+
+    if (data.some(contact => contact.name === name)) {
+      toast.error(`${name} is already in contacts`);
+    } else {
+      addContact({ name, number });
+      toast.success(`${name} has successfully added`);
+    }
 
     setName('');
     setNumber('');
@@ -56,7 +51,7 @@ export default function Phonebook() {
                 title={field.title}
                 value={{ name, number }[field.name]}
                 onChange={handleInputChange}
-                required
+                required={field.required}
               />
             </label>
           </li>
@@ -64,7 +59,11 @@ export default function Phonebook() {
       </ul>
 
       <button type="submit" className={styles.Btn}>
-        add contact
+        {isAdding ? (
+          <ThreeDots color="white" height={20} width={90} />
+        ) : (
+          'add contact'
+        )}
       </button>
     </form>
   );

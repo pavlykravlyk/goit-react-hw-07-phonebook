@@ -32,7 +32,7 @@
   margin-bottom: 0;
 }
 
-/* .Btn {
+.Btn {
   padding: 5px;
   min-width: 80px;
   min-height: 30px;
@@ -45,4 +45,4 @@
 .Btn :focus {
   background-color: gray;
   color: white;
-} */
+}
