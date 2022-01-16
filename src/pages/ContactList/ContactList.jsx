@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useGetAllContactsQuery } from 'redux/contactSlice';
 import ContactListItem from './ContactListItem';
+import { ThreeDots } from 'react-loader-spinner';
 import styles from './ContactsList.module.css';
 
 const getFilteredContacts = (allContacts, filterValue) => {
@@ -26,12 +27,15 @@ export default function ContactList() {
   );
 
   return (
-    isSuccess && (
-      <ul className={styles.List}>
-        {filteredContacts.map(contact => (
-          <ContactListItem key={contact.id} {...contact} />
-        ))}
-      </ul>
-    )
+    <>
+      {isLoading && <ThreeDots color="gray" height={80} width={80} />}
+      {isSuccess && (
+        <ul className={styles.List}>
+          {filteredContacts.map(contact => (
+            <ContactListItem key={contact.id} {...contact} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
