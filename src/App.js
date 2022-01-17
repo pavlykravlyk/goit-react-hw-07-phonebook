@@ -1,9 +1,9 @@
 import './App.css';
 import Container from './components/Container/Container';
 import Section from './components/Section/Section';
-import ContactList from './pages/ContactList';
-import ContactForm from 'pages/ContactForm/ContactForm';
-import Filter from './pages/Filter/Filter';
+import ContactList from './components/ContactList';
+import ContactForm from 'components/ContactForm/ContactForm';
+import Filter from './components/Filter/Filter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
